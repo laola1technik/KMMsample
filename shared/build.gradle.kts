@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    kotlin("plugin.serialization") version "1.8.10"
 }
 
 kotlin {
@@ -25,15 +26,32 @@ kotlin {
             baseName = "shared"
         }
     }
-    
+    val ktorVersion = "2.3.3"
+    val coroutinesVersion = "1.7.3"
     sourceSets {
-        val commonMain by getting
+
+        val commonMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-core:$ktorVersion") // Hier die gewünschte Ktor-Version einfügen
+                implementation("io.ktor:ktor-client-json:$ktorVersion") // Für JSON-Unterstützung
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+
+
+                // Weitere Ktor-Abhängigkeiten je nach Bedarf hinzufügen
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+            }
+        }
         val androidUnitTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -43,6 +61,9 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
