@@ -3,7 +3,7 @@ package com.example.kmmtestlibrary
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class CommonGreetingTest {
+class GreetingTest {
 
     @Test
     fun testExample() {
