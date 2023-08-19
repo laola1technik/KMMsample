@@ -34,6 +34,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-core:$ktorVersion") // Hier die gewünschte Ktor-Version einfügen
                 implementation("io.ktor:ktor-client-json:$ktorVersion") // Für JSON-Unterstützung
+                implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
